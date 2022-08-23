@@ -26,6 +26,7 @@ local servers = {
 	"tsserver",
 	"vuels",
 	"yamlls",
+   "powershell_es"
 }
 
 lsp_installer.setup()
