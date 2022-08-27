@@ -29,6 +29,8 @@ local servers = {
    "powershell_es"
 }
 
+-- local servers = lsp_installer.get_installed_servers()
+
 lsp_installer.setup()
 
 local lspconfig_status_ok, lspconfig = pcall(require, "lspconfig")
@@ -53,6 +55,23 @@ for _, server in pairs(servers) do
 		local pyright_opts = require("user.lsp.settings.pyright")
 		opts = vim.tbl_deep_extend("force", pyright_opts, opts)
 	end
+
+   -- if server == "powershell_es" then
+   --    opts = vim.tbl_deep_extend(
+   --       "force",
+   --       {
+   --          bundle_path = "C:/Users/kevin/lsp/PSES",
+   --          cmd = {
+   --             "pwsh",
+   --             "-NoLogo",
+   --             "-NoProfile",
+   --             "-Command",
+   --             "$env:HOMEPATH/lsp/PSES/Start-EditorServices.ps1 -BundledModulesPath $env:HOMEPATH/lsp/PSES -LogPath $env:TMP/logs.log -SessionDetailsPath $env:TMP/session.json -FeatureFlags @() -AdditionalModules @() -HostName 'My Client' -HostProfileId 'myclient' -HostVersion 1.0.0 -Stdio -LogLevel Normal"
+   --          },
+   --       },
+   --       opts
+   --    )
+   -- end
 
 	lspconfig[server].setup(opts)
 end

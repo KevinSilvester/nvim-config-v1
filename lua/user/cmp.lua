@@ -60,6 +60,15 @@ cmp.setup({
 			i = cmp.mapping.abort(),
 			c = cmp.mapping.close(),
 		}),
+		["<C-O>"] = cmp.mapping(function(fallback)
+			cmp.mapping.abort()
+			local copilot_keys = vim.fn["copilot#Accept"]()
+			if copilot_keys ~= "" then
+				vim.api.nvim_feedkeys(copilot_keys, "i", true)
+			else
+				fallback()
+			end
+		end, { "i", "s", }),
 		-- Accept currently selected item. If none selected, `select` first item.
 		-- Set `select` to `false` to only confirm explicitly selected items.
 		["<CR>"] = cmp.mapping.confirm({ select = true }),
@@ -75,10 +84,7 @@ cmp.setup({
 			else
 				fallback()
 			end
-		end, {
-			"i",
-			"s",
-		}),
+		end, { "i", "s" }),
 		["<S-Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_prev_item()
@@ -87,10 +93,7 @@ cmp.setup({
 			else
 				fallback()
 			end
-		end, {
-			"i",
-			"s",
-		}),
+		end, { "i", "s" }),
 	}),
 	formatting = {
 		fields = { "kind", "abbr", "menu" },
@@ -103,6 +106,7 @@ cmp.setup({
 				buffer = "",
 				path = "",
 				emoji = "",
+            crates = ""
 			})[entry.source.name]
 			return vim_item
 		end,
@@ -113,6 +117,7 @@ cmp.setup({
 		{ name = "luasnip" },
 		{ name = "buffer" },
 		{ name = "path" },
+      { name = "crates" }
 	},
 	confirm_opts = {
 		behavior = cmp.ConfirmBehavior.Replace,

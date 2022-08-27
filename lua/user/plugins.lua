@@ -56,14 +56,45 @@ return packer.startup(function(use)
 	use({ "lewis6991/impatient.nvim", commit = "969f2c5c90457612c09cf2a13fee1adaa986d350" })
 	use({ "lukas-reineke/indent-blankline.nvim", commit = "6177a59552e35dfb69e1493fd68194e673dc3ee2" })
 	use({ "goolord/alpha-nvim", commit = "ef27a59e5b4d7b1c2fe1950da3fe5b1c5f3b4c94" })
-	use({ "folke/which-key.nvim" })
+
+   -- fix comments
 	use({
-		"folke/trouble.nvim",
-		requires = "kyazdani42/nvim-web-devicons",
-		config = function()
-			require("trouble").setup({})
-		end,
+		"max397574/which-key.nvim",
+		commit = "f03a259482db55ac0d1972d977a8d1dde96e9651",
+		event = "BufWinEnter",
 	})
+
+	use({
+		"iamcco/markdown-preview.nvim",
+		commit = "02cc3874738bc0f86e4b91f09b8a0ac88aef8e96",
+		run = "cd app && pnpm i",
+		setup = function()
+			vim.g.mkdp_filetypes = { "markdown" }
+		end,
+		ft = { "markdown" },
+	})
+	use({
+		"tpope/vim-surround",
+		commit = "bf3480dc9ae7bea34c78fbba4c65b4548b5b1fea",
+		keys = { "c", "d", "y" },
+	})
+	use({
+		"mg979/vim-visual-multi",
+		commit = "e23b98a8852255766e54bf7723a9d61fb5ab3143",
+		branch = "master",
+	})
+	use({ "mattn/emmet-vim", commit = "def5d57a1ae5afb1b96ebe83c4652d1c03640f4d", branch = "master" })
+
+	-- rust
+	use({ "simrat39/rust-tools.nvim" })
+	use({
+		"saecki/crates.nvim",
+		tag = "v0.2.1",
+		requires = { "nvim-lua/plenary.nvim" },
+	})
+
+	-- Github Copilot
+	use({ "github/copilot.vim" })
 
 	-- Colorschemes
 	use({ "folke/tokyonight.nvim", commit = "8223c970677e4d88c9b6b6d81bda23daf11062bb" })
