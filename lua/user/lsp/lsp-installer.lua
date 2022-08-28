@@ -26,12 +26,12 @@ local servers = {
 	"tsserver",
 	"vuels",
 	"yamlls",
-   "powershell_es"
+	"powershell_es",
 }
 
 -- local servers = lsp_installer.get_installed_servers()
 
-lsp_installer.setup()
+lsp_installer.setup({ ensure_installed = servers })
 
 local lspconfig_status_ok, lspconfig = pcall(require, "lspconfig")
 if not lspconfig_status_ok then
@@ -46,32 +46,28 @@ for _, server in pairs(servers) do
 		capabilities = require("user.lsp.handlers").capabilities,
 	}
 
-	if server == "sumneko_lua" then
-		local sumneko_opts = require("user.lsp.settings.sumneko_lua")
-		opts = vim.tbl_deep_extend("force", sumneko_opts, opts)
-	end
+	local has_custom_opts, server_custom_opts = pcall(require, "user.lsp.settings." .. server)
 
-	if server == "pyright" then
-		local pyright_opts = require("user.lsp.settings.pyright")
-		opts = vim.tbl_deep_extend("force", pyright_opts, opts)
+	if has_custom_opts then
+		opts = vim.tbl_deep_extend("force", opts, server_custom_opts)
 	end
-
-   -- if server == "powershell_es" then
-   --    opts = vim.tbl_deep_extend(
-   --       "force",
-   --       {
-   --          bundle_path = "C:/Users/kevin/lsp/PSES",
-   --          cmd = {
-   --             "pwsh",
-   --             "-NoLogo",
-   --             "-NoProfile",
-   --             "-Command",
-   --             "$env:HOMEPATH/lsp/PSES/Start-EditorServices.ps1 -BundledModulesPath $env:HOMEPATH/lsp/PSES -LogPath $env:TMP/logs.log -SessionDetailsPath $env:TMP/session.json -FeatureFlags @() -AdditionalModules @() -HostName 'My Client' -HostProfileId 'myclient' -HostVersion 1.0.0 -Stdio -LogLevel Normal"
-   --          },
-   --       },
-   --       opts
-   --    )
-   -- end
 
 	lspconfig[server].setup(opts)
+
+	-- if server == "powershell_es" then
+	--    opts = vim.tbl_deep_extend(
+	--       "force",
+	--       {
+	--          bundle_path = "C:/Users/kevin/lsp/PSES",
+	--          cmd = {
+	--             "pwsh",
+	--             "-NoLogo",
+	--             "-NoProfile",
+	--             "-Command",
+	--             "$env:HOMEPATH/lsp/PSES/Start-EditorServices.ps1 -BundledModulesPath $env:HOMEPATH/lsp/PSES -LogPath $env:TMP/logs.log -SessionDetailsPath $env:TMP/session.json -FeatureFlags @() -AdditionalModules @() -HostName 'My Client' -HostProfileId 'myclient' -HostVersion 1.0.0 -Stdio -LogLevel Normal"
+	--          },
+	--       },
+	--       opts
+	--    )
+	-- end
 end

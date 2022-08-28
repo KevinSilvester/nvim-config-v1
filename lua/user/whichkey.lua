@@ -29,6 +29,7 @@ local setup = {
 	key_labels = {
 		-- override the label used to display some keys. It doesn't effect WK in any other way.
 		-- For example:
+      ["<leader>"] = "SPC"
 		-- ["<space>"] = "SPC",
 		-- ["<cr>"] = "RET",
 		-- ["<tab>"] = "TAB",

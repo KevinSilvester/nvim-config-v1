@@ -6,8 +6,8 @@ if not status_ok then
 end
 
 crates.setup({
-  null_ls = {
-    enabled = false,
-    name = "Crates"
-  }
+  -- null_ls = {
+  --   enabled = false,
+  --   name = "Crates"
+  -- }
 })

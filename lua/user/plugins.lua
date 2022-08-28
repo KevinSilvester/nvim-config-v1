@@ -57,11 +57,11 @@ return packer.startup(function(use)
 	use({ "lukas-reineke/indent-blankline.nvim", commit = "6177a59552e35dfb69e1493fd68194e673dc3ee2" })
 	use({ "goolord/alpha-nvim", commit = "ef27a59e5b4d7b1c2fe1950da3fe5b1c5f3b4c94" })
 
-   -- fix comments
+	-- fix comments
 	use({
 		"max397574/which-key.nvim",
 		commit = "f03a259482db55ac0d1972d977a8d1dde96e9651",
-		event = "BufWinEnter",
+		-- event = "BufWinEnter",
 	})
 
 	use({
@@ -73,11 +73,7 @@ return packer.startup(function(use)
 		end,
 		ft = { "markdown" },
 	})
-	use({
-		"tpope/vim-surround",
-		commit = "bf3480dc9ae7bea34c78fbba4c65b4548b5b1fea",
-		keys = { "c", "d", "y" },
-	})
+	use({ "kylechui/nvim-surround" })
 	use({
 		"mg979/vim-visual-multi",
 		commit = "e23b98a8852255766e54bf7723a9d61fb5ab3143",
@@ -93,8 +89,20 @@ return packer.startup(function(use)
 		requires = { "nvim-lua/plenary.nvim" },
 	})
 
+	-- Java
+	use({ "mfussenegger/nvim-jdtls" })
+
 	-- Github Copilot
 	use({ "github/copilot.vim" })
+	use({
+		"zbirenbaum/copilot.lua",
+		event = { "VimEnter" },
+		config = function()
+			vim.defer_fn(function()
+				require("copilot").setup()
+			end, 100)
+		end,
+	})
 
 	-- Colorschemes
 	use({ "folke/tokyonight.nvim", commit = "8223c970677e4d88c9b6b6d81bda23daf11062bb" })
@@ -105,8 +113,11 @@ return packer.startup(function(use)
 	use({ "hrsh7th/nvim-cmp", commit = "df6734aa018d6feb4d76ba6bda94b1aeac2b378a" }) -- The completion plugin
 	use({ "hrsh7th/cmp-buffer", commit = "62fc67a2b0205136bc3e312664624ba2ab4a9323" }) -- buffer completions
 	use({ "hrsh7th/cmp-path", commit = "466b6b8270f7ba89abd59f402c73f63c7331ff6e" }) -- path completions
+	use({ "hrsh7th/cmp-cmdline" }) -- cmdline completions
 	use({ "saadparwaiz1/cmp_luasnip", commit = "a9de941bcbda508d0a45d28ae366bb3f08db2e36" }) -- snippet completions
 	use({ "hrsh7th/cmp-nvim-lsp", commit = "affe808a5c56b71630f17aa7c38e15c59fd648a8" })
+	use({ "hrsh7th/cmp-emoji" })
+	use({ "zbirenbaum/copilot-cmp" })
 	use({ "hrsh7th/cmp-nvim-lua", commit = "d276254e7198ab7d00f117e88e223b4bd8c02d21" })
 
 	-- snippets

@@ -19,6 +19,12 @@ null_ls.setup({
 		formatting.black.with({ extra_args = { "--fast" } }),
 		formatting.stylua,
 		formatting.google_java_format,
+      formatting.blade_formatter,
+      formatting.sql_formatter,
+      formatting.clang_format,
+      formatting.cmake_format,
+      formatting.rustfmt,
+      formatting.taplo,
 		diagnostics.flake8,
 	},
 })
