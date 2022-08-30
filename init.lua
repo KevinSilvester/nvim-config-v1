@@ -1,27 +1,29 @@
-require "user.alpha"
-require "user.autocommands"
-require "user.autopairs"
-require "user.bufferline"
-require "user.cmp"
-require "user.copilot"
-require "user.colorscheme"
-require "user.comment"
-require "user.crates"
-require "user.dap"
-require "user.gitsigns"
-require "user.illuminate"
-require "user.impatient"
-require "user.indentline"
-require "user.keymaps"
-require "user.lsp"
-require "user.lualine"
-require "user.nvim-tree"
-require "user.options"
-require "user.project"
-require "user.plugins"
-require "user.rust-tools"
-require "user.telescope"
-require "user.toggleterm"
-require "user.treesitter"
-require "user.vim-surround"
-require "user.whichkey"
+require("user.options")
+require("user.keymaps")
+require("user.plugins")
+require("user.autocommands")
+require("user.colorscheme")
+require("user.cmp")
+require("user.telescope")
+require("user.treesitter")
+require("user.autopairs")
+require("user.comment")
+require("user.gitsigns")
+require("user.nvim-tree")
+require("user.bufferline")
+require("user.lualine")
+require("user.toggleterm")
+require("user.project")
+require("user.impatient")
+require("user.illuminate")
+require("user.indentline")
+require("user.alpha")
+require("user.lsp")
+require("user.dap")
+
+require("user.vim-surround")
+require("user.copilot")
+require("user.whichkey")
+require("user.rust-tools")
+require("user.spectre")
+require("user.crates")
