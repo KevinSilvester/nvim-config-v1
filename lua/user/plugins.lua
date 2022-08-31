@@ -70,9 +70,14 @@ return packer.startup(function(use)
    -- FileExplorer/Sidebar
    use({ "kyazdani42/nvim-tree.lua", commit = "bdb6d4a25410da35bbf7ce0dbdaa8d60432bc243" })
 
-   -- Lines
+   -- StatusLine/Windbar
    use({ "akinsho/bufferline.nvim", commit = "c78b3ecf9539a719828bca82fc7ddb9b3ba0c353" })
    use({ "nvim-lualine/lualine.nvim", commit = "3362b28f917acc37538b1047f187ff1b5645ecdd" })
+   use({
+      "SmiteshP/nvim-navic",
+      commit = "94bf6fcb1dc27bdad230d9385da085e72c390019",
+      requires = "neovim/nvim-lspconfig",
+   })
 
    -- Terminal
    use({ "akinsho/toggleterm.nvim", commit = "aaeed9e02167c5e8f00f25156895a6fd95403af8" })
@@ -96,10 +101,15 @@ return packer.startup(function(use)
 
    -- LSP
    use({ "neovim/nvim-lspconfig", commit = "148c99bd09b44cf3605151a06869f6b4d4c24455" }) -- enable LSP
-   use({ "williamboman/nvim-lsp-installer", commit = "e9f13d7acaa60aff91c58b923002228668c8c9e6" }) -- simple to use language server installer
+   use({ "williamboman/mason.nvim", commit = "5e028cb5377e1c3a201d9f689d75f440e3fe468e" }) -- LSP Installer
+   use({ "williamboman/mason-lspconfig.nvim", commit = "74c45b3663aeb4c9065a4b29355d9c1c8a8c00b5" }) -- Brigde mason and lspconfig
+   -- use({ "williamboman/nvim-lsp-installer", commit = "e9f13d7acaa60aff91c58b923002228668c8c9e6" }) -- LSP installer
    use({ "jose-elias-alvarez/null-ls.nvim", commit = "95068cf961fe699a2ebf914e0fddce55c27519b2" }) -- for formatters and linters
-   use({ "RRethy/vim-illuminate", commit = "c82e6d04f27a41d7fdcad9be0bce5bb59fcb78e5" })
+   use({ "RRethy/vim-illuminate", commit = "c82e6d04f27a41d7fdcad9be0bce5bb59fcb78e5" }) -- hightlight matching words
+   use({ "ray-x/lsp_signature.nvim", commit = "e65a63858771db3f086c8d904ff5f80705fd962b" })
    use({ "onsails/lspkind.nvim" })
+   use({ "folke/lua-dev.nvim" })
+   use({ "b0o/schemastore.nvim" })
 
    -- Copilot
    use({ "github/copilot.vim" })

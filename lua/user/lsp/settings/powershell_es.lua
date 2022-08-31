@@ -1,10 +1,8 @@
-local os_name = vim.loop.os_uname().sysname
-
 local opts = {}
 
-if os_name == "Windows_NT" then
+if vim.fn.has("win64") or vim.fn.has("win32") or vim.fn.has("win16")then
    opts = {
-      bundle_path = "C:/Users/kevin/lsp/PSE",
+      bundle_path = "C:/Users/kevin/lsp/PSES",
       cmd = {
          "pwsh",
          "-NoLogo",

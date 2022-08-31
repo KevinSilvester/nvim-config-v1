@@ -1,5 +1,15 @@
-local status_ok, lsp_installer = pcall(require, "nvim-lsp-installer")
+local status_ok, mason = pcall(require, "mason")
 if not status_ok then
+   return
+end
+
+local status_ok_1, mason_lspconfig = pcall(require, "mason-lspconfig")
+if not status_ok_1 then
+   return
+end
+
+local lspconfig_status_ok, lspconfig = pcall(require, "lspconfig")
+if not lspconfig_status_ok then
    return
 end
 
@@ -17,6 +27,7 @@ local servers = {
    "jdtls",
    "jsonls",
    "marksman",
+   "powershell_es",
    "rust_analyzer",
    "sqls",
    "sumneko_lua",
@@ -26,17 +37,37 @@ local servers = {
    "tsserver",
    "vuels",
    "yamlls",
-   "powershell_es",
 }
 
--- local servers = lsp_installer.get_installed_servers()
+mason.setup({
+   ui = {
+      border = "rounded",
+      icons = {
+         package_installed = "✓",
+         package_pending = "➜",
+         package_uninstalled = "✗",
+      },
+   },
+   -- stylua: ignore
+   keymaps = {
+      toggle_package_expand = "<CR>",  -- Keymap to expand a package
+      install_package = "i",           -- Keymap to install the package under the current cursor position
+      update_package = "u",            -- Keymap to reinstall/update the package under the current cursor position
+      check_package_version = "c",     -- Keymap to check for new version for the package under the current cursor position
+      update_all_packages = "U",       -- Keymap to update all installed packages
+      check_outdated_packages = "C",   -- Keymap to check which installed packages are outdated
+      uninstall_package = "X",         -- Keymap to uninstall a package
+      cancel_installation = "<C-c>",   -- Keymap to cancel a package installation
+      apply_language_filter = "<C-f>", -- Keymap to apply language filter
+   },
+   log_level = vim.log.levels.INFO,
+   max_concurrent_installers = 4,
+})
 
-lsp_installer.setup({ ensure_installed = servers })
-
-local lspconfig_status_ok, lspconfig = pcall(require, "lspconfig")
-if not lspconfig_status_ok then
-   return
-end
+mason_lspconfig.setup({
+   ensure_installed = servers,
+   automatic_installation = true,
+})
 
 local opts = {}
 

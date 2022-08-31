@@ -3,6 +3,10 @@ if not status_ok then
    return
 end
 
+local M = {}
+
+M.copilot_active = false
+
 local function diff_source()
    local gitsigns = vim.b.gitsigns_status_dict
    if gitsigns then
@@ -71,10 +75,15 @@ local treesitter = {
    end,
 }
 
+local hl_str = function(str, hl)
+   return "%#" .. hl .. "#" .. str .. "%*"
+end
+
 local lsp = {
    function(msg)
       msg = msg or "LS Inactive"
       local buf_clients = vim.lsp.buf_get_clients()
+
       if next(buf_clients) == nil then
          -- TODO: clean up this if statement
          if type(msg) == "boolean" or #msg == 0 then
@@ -82,20 +91,49 @@ local lsp = {
          end
          return msg
       end
+
       local buf_ft = vim.bo.filetype
       local buf_client_names = {}
 
       -- add client
       for _, client in pairs(buf_clients) do
-         if client.name ~= "null-ls" then
+         if client.name ~= "copilot" and client.name ~= "null-ls" then
             table.insert(buf_client_names, client.name)
+         end
+         if client.name == "copilot" then
+            M.copilot_active = true
+         end
+      end
+
+      local s = require("null-ls.sources")
+      local available_sources = s.get_available(buf_ft)
+      local buf_fmt_names = {}
+
+      -- add formatter
+      for _, source in ipairs(available_sources) do
+         for method in pairs(source.methods) do
+            table.insert(buf_fmt_names, source.name)
          end
       end
 
       local unique_client_names = vim.fn.uniq(buf_client_names)
-      return "[" .. table.concat(unique_client_names, ", ") .. "]"
+      local unique_fmt_names = vim.fn.uniq(buf_fmt_names)
+
+      local str_client = table.concat(unique_client_names, ", ") or "No LS"
+      local str_fmt = table.concat(unique_fmt_names, ", ") or "No Formatter"
+
+      return "[" .. str_client .. " ▍ " .. str_fmt .. "]"
    end,
    color = { gui = "bold" },
+}
+
+local copilot = {
+   function()
+      return ""
+   end,
+   color = function()
+      return { fg = M.copilot_active and colors.green or colors.red }
+   end,
 }
 
 local spaces = function()
@@ -116,7 +154,7 @@ lualine.setup({
       lualine_a = { "mode" },
       lualine_b = { branch, "filename" },
       lualine_c = { diff, diagnostics },
-      lualine_x = { treesitter, lsp, "encoding", filetype },
+      lualine_x = { treesitter, copilot, lsp, "encoding", filetype },
       lualine_y = { location },
       lualine_z = { "progress" },
    },

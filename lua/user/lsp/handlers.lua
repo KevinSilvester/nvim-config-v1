@@ -21,7 +21,7 @@ M.setup = function()
       vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
    end
 
-   local config = {
+   vim.diagnostic.config({
       virtual_text = false, -- disable virtual text
       signs = {
          active = signs, -- show signs
@@ -37,9 +37,7 @@ M.setup = function()
          header = "",
          prefix = "",
       },
-   }
-
-   vim.diagnostic.config(config)
+   })
 
    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
       border = "rounded",
@@ -70,31 +68,14 @@ local function lsp_keymaps(bufnr)
    keymap(bufnr, "n", "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
 end
 
---[[ local function lsp_keymaps(bufnr)
-	local keymaps = {
-		["gD"] = {"<cmd>lua vim.lsp.buf.declaration()<CR>", "Goto Definition" }
-		["gd"] = {"<cmd>lua vim.lsp.buf.definition()<CR>", "Goto Declaration" },
-		["K"] = {"<cmd>lua vim.lsp.buf.hover()<CR>", "Show Hover" },
-		["gI"] = {"<cmd>lua vim.lsp.buf.implementation()<CR>", "Goto Implementation" },
-		["gr"] = {"<cmd>lua vim.lsp.buf.references()<CR>", "Goto References" },
-		["gl"] = {"<cmd>lua vim.diagnostic.open_float()<CR>", "Show Line Diagnostic" },
-		["<leader>lf"] = {"<cmd>lua vim.lsp.buf.formatting()<CR>", "Format File" },
-		["<leader>li"] = {"<cmd>LspInfo<CR>", "Lsp Info" },
-		["<leader>lI"] = {"<cmd>LspInstallInfo<CR>", "Lsp Install Info" },
-		["<leader>la"] = {"<cmd>lua vim.lsp.buf.code_action()<CR>", "Code Action" },
-		["<leader>lj"] = {"<cmd>lua vim.diagnostic.goto_next({ buffer = 0 })<CR>", "Next Diagnostic" },
-		["<leader>lk"] = {"<cmd>lua vim.diagnostic.goto_prev({ buffer = 0 })<CR>", "Previous Diagnostic" },
-		["<leader>lr"] = {"<cmd>lua vim.lsp.buf.rename()<CR>", "Rename" },
-		["<leader>ls"] = {"<cmd>lua vim.lsp.buf.signature_help()<CR>", "Document Signature" },
-		["<leader>lq"] = {"<cmd>lua vim.diagnostic.setloclist()<CR>", "QuickFix" },
-	}
-
-	for key, remap in pairs(keymaps) do
-		local opts = { buffer = bufnr, desc = remap[2], noremap = true, silent = true }
-		vim.keymap.set("n", key, remap[1], opts)
-	end
+local function attach_navic(client, bufnr)
+   vim.g.navic_silence = true
+   local status_ok, navic = pcall(require, "nvim-navic")
+   if status_ok then
+      navic.attach(client, bufnr)
+   end
 end
-]]
+
 M.on_attach = function(client, bufnr)
    if client.name == "tsserver" then
       client.resolved_capabilities.document_formatting = false
@@ -104,7 +85,17 @@ M.on_attach = function(client, bufnr)
       client.resolved_capabilities.document_formatting = false
    end
 
+   if client.name == "jdt.ls" then
+      vim.lsp.codelens.refresh()
+      if JAVA_DAP_ACTIVE then
+         require("jdtls").setup_dap({ hotcodereplace = "auto" })
+         require("jdtls.dap").setup_dap_main_class_configs()
+      end
+   end
+
    lsp_keymaps(bufnr)
+   attach_navic(client, bufnr)
+
    local status_ok, illuminate = pcall(require, "illuminate")
    if not status_ok then
       return
