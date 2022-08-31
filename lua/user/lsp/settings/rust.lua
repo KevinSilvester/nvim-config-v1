@@ -1,9 +1,9 @@
 local cmd = { "rustup", "run", "stable" }
 
 if vim.fn.has("win64") or vim.fn.has("win32") or vim.fn.has("win16") then
-   table.insert(cmd, vim.fn.stdpath("data") .. "ls_servers\\rust_analyzer.exe")
+   table.insert(cmd, vim.fn.stdpath("data") .. "mason\\bin\\rust_analyzer.cmd")
 else
-   table.insert(cmd, vim.fn.stdpath("data") .. "ls_servers/rust_analyzer")
+   table.insert(cmd, vim.fn.stdpath("data") .. "mason/bin/rust_analyzer")
 end
 
 return {
@@ -65,7 +65,6 @@ return {
             { "╰", "FloatBorder" },
             { "│", "FloatBorder" },
          },
-         k,
       },
    },
    server = {
