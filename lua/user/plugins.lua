@@ -48,6 +48,7 @@ return packer.startup(function(use)
    -- Essentials
    use({ "goolord/alpha-nvim", commit = "09e5374465810d71c33e9b097214adcdebeee49a" })
    use({ "nvim-lua/plenary.nvim", commit = "968a4b9afec0c633bc369662e78f8c5db0eba249" }) -- Useful lua functions used by lots of plugins
+   use({ "nvim-lua/popup.nvim", commit = "b7404d35d5d3548a82149238289fa71f7f6de4ac" })
    use({ "windwp/nvim-autopairs", commit = "fa6876f832ea1b71801c4e481d8feca9a36215ec" })
    use({ "kyazdani42/nvim-web-devicons", commit = "8d2c5337f0a2d0a17de8e751876eeb192b32310e" })
    use({ "moll/vim-bbye", commit = "25ef93ac5a87526111f43e5110675032dbcacf56" })
@@ -58,6 +59,9 @@ return packer.startup(function(use)
       commit = "6177a59552e35dfb69e1493fd68194e673dc3ee2",
    })
    use({ "folke/which-key.nvim", commit = "bd4411a2ed4dd8bb69c125e339d837028a6eea71" })
+
+   -- Notes
+   use({ "oberblastmeister/neuron.nvim", commit = "293d80be8eb166353e8f82a30b6ea77f2e5c96ec" })
 
    -- Comments
    use({ "numToStr/Comment.nvim", commit = "2c26a00f32b190390b664e56e32fd5347613b9e2" })
@@ -94,6 +98,7 @@ return packer.startup(function(use)
    use({ "saadparwaiz1/cmp_luasnip", commit = "a9de941bcbda508d0a45d28ae366bb3f08db2e36" }) -- snippet completions
    use({ "hrsh7th/cmp-nvim-lsp", commit = "affe808a5c56b71630f17aa7c38e15c59fd648a8" })
    use({ "hrsh7th/cmp-nvim-lua", commit = "d276254e7198ab7d00f117e88e223b4bd8c02d21" })
+   use({ "windwp/nvim-ts-autotag" })
 
    -- snippets
    use({ "L3MON4D3/LuaSnip", commit = "79b2019c68a2ff5ae4d732d50746c901dd45603a" }) --snippet engine
@@ -103,27 +108,32 @@ return packer.startup(function(use)
    use({ "neovim/nvim-lspconfig", commit = "148c99bd09b44cf3605151a06869f6b4d4c24455" }) -- enable LSP
    use({ "williamboman/mason.nvim", commit = "5e028cb5377e1c3a201d9f689d75f440e3fe468e" }) -- LSP Installer
    use({ "williamboman/mason-lspconfig.nvim", commit = "74c45b3663aeb4c9065a4b29355d9c1c8a8c00b5" }) -- Brigde mason and lspconfig
-   -- use({ "williamboman/nvim-lsp-installer", commit = "e9f13d7acaa60aff91c58b923002228668c8c9e6" }) -- LSP installer
    use({ "jose-elias-alvarez/null-ls.nvim", commit = "95068cf961fe699a2ebf914e0fddce55c27519b2" }) -- for formatters and linters
    use({ "RRethy/vim-illuminate", commit = "c82e6d04f27a41d7fdcad9be0bce5bb59fcb78e5" }) -- hightlight matching words
    use({ "ray-x/lsp_signature.nvim", commit = "e65a63858771db3f086c8d904ff5f80705fd962b" })
-   use({ "onsails/lspkind.nvim" })
-   use({ "folke/lua-dev.nvim" })
-   use({ "b0o/schemastore.nvim" })
+   use({ "folke/lsp-colors.nvim", commit = "517fe3ab6b63f9907b093bc9443ef06b56f804f3" })
+   use({ "folke/lua-dev.nvim" }) -- not commit as still in early development
+   use({ "b0o/schemastore.nvim" }) -- no commit as new schemas are being added
+   -- use({ "onsails/lspkind.nvim" }) -- cmp dropdown formatter
+   -- use({ "williamboman/nvim-lsp-installer", commit = "e9f13d7acaa60aff91c58b923002228668c8c9e6" }) -- LSP installer
 
    -- Copilot
-   use({ "github/copilot.vim" })
-   -- -- VimEnter event wasn't firing, hence plugins weren't loading
-   -- use({
-   --    "zbirenbaum/copilot.lua",
-   --    event = { "VimEnter" },
-   --    config = function()
-   --       vim.defer_fn(function()
-   --          require("user.copilot")
-   --       end, 100)
-   --    end,
-   -- })
-   -- use({ "zbirenbaum/copilot-cmp", module = "copilot_cmp" })
+   -- use({ "github/copilot.vim" })
+   use({
+      "zbirenbaum/copilot.lua",
+      event = "BufEnter",
+      -- after = "nvim-lualine/lualine.nvim",
+      config = function()
+         vim.defer_fn(function()
+            require("user.copilot")
+         end, 100)
+      end,
+   })
+   use({
+      "zbirenbaum/copilot-cmp",
+      module = "copilot_cmp",
+      after = { "copilot.lua", "nvim-cmp" },
+   })
 
    -- Telescope
    use({ "nvim-telescope/telescope.nvim", commit = "d96eaa914aab6cfc4adccb34af421bdd496468b0" })
@@ -136,7 +146,11 @@ return packer.startup(function(use)
 
    -- Git
    use({ "lewis6991/gitsigns.nvim", commit = "c18e016864c92ecf9775abea1baaa161c28082c3" })
-
+   use({
+      "sindrets/diffview.nvim",
+      commit = "e32de2be00e0b5e23736f906f3d6d9dca14fbeb0",
+      requires = "nvim-lua/plenary.nvim",
+   })
    -- DAP
    use({ "mfussenegger/nvim-dap", commit = "014ebd53612cfd42ac8c131e6cec7c194572f21d" })
    use({ "rcarriga/nvim-dap-ui", commit = "d76d6594374fb54abf2d94d6a320f3fd6e9bb2f7" })
@@ -173,6 +187,11 @@ return packer.startup(function(use)
          vim.g.mkdp_filetypes = { "markdown" }
       end,
       ft = { "markdown" },
+   })
+   use({
+      "wfxr/minimap.vim",
+      commit = "3801d9dfaa5431e7b83ae6f98423ac077d9f5c3f",
+      run = "cargo install --locked code-minimap",
    })
    use({ "kylechui/nvim-surround", commit = "b9946a3585842852ac3d46e1df82802e54322295" })
    use({

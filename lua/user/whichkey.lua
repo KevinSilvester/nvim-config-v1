@@ -86,11 +86,6 @@ local mappings = {
    },
    ["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
    ["c"] = { "<cmd>Bdelete!<CR>", "Close Buffer" },
-   -- ['f'] = {
-   --    "<cmd>lua require('telescope.builtin').find_files()<cr>",
-   --    'Find files',
-   -- },
-   -- ['F'] = { '<cmd>Telescope live_grep theme=ivy<cr>', 'Find Text' },
    ["h"] = { "<cmd>nohlsearch<CR>", "Clear Highlights" },
    ["/"] = { '<cmd>lua require("Comment.api").toggle_current_linewise()<CR>', "Comment line" },
 
@@ -101,6 +96,16 @@ local mappings = {
       s = { "<cmd>PackerSync<cr>", "Sync" },
       S = { "<cmd>PackerStatus<cr>", "Status" },
       u = { "<cmd>PackerUpdate<cr>", "Update" },
+   },
+
+   m = {
+      name = "Mini-Map",
+      o = {"<cmd>Minimap<CR>", "Open"},
+      c = {"<cmd>MinimapClose<CR>", "Close"},
+      t = {"<cmd>MinimapToggle<CR>", "Toggle"},
+      r = {"<cmd>MinimapRescan<CR>", "Rescan"},
+      R = {"<cmd>MinimapRefresh<CR>", "Refresh"},
+      u = {"<cmd>MinimapUpdateHighlight<CR>", "Update Highlight"},
    },
 
    d = {

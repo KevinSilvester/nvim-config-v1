@@ -8,10 +8,10 @@ if not snip_status_ok then
    return
 end
 
-local lspkind_status_ok, lspkind = pcall(require, "lspkind")
-if not lspkind_status_ok then
-   return
-end
+-- local lspkind_status_ok, lspkind = pcall(require, "lspkind")
+-- if not lspkind_status_ok then
+--    return
+-- end
 
 require("luasnip/loaders/from_vscode").lazy_load()
 
@@ -52,6 +52,7 @@ local kind_icons = {
 }
 
 vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
+
 local has_words_before = function()
    if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
       return false
@@ -126,24 +127,25 @@ cmp.setup({
          end
 
          vim_item.menu = ({
-            nvim_lsp = "",
-            nvim_lua = "",
-            luasnip = "",
-            buffer = "",
-            path = "",
-            emoji = "",
+            nvim_lsp = "[LSP]",
+            nvim_lua = "[Lua]",
+            copilot = "[Copilot]",
+            luasnip = "[Luasnip]",
+            buffer = "[Buffer]",
+            path = "[Path]",
+            emoji = "[Emoji]",
          })[entry.source.name]
          return vim_item
       end,
    },
 
    sources = {
-      { name = "nvim_lsp" },
-      { name = "nvim_lua" },
-      { name = "copilot", max_item_count = 3 },
-      { name = "luasnip" },
-      { name = "buffer" },
-      { name = "path" },
+      { name = "nvim_lsp", group_index = 2 },
+      { name = "nvim_lua", group_index = 2 },
+      { name = "copilot", max_item_count = 3, group_index = 2 },
+      { name = "luasnip", group_index = 2 },
+      { name = "buffer", group_index = 2 },
+      { name = "path", group_index = 2 },
    },
 
    confirm_opts = {

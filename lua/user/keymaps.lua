@@ -23,10 +23,10 @@ keymap("n", "<C-k>", "<C-w>k", opts)
 keymap("n", "<C-l>", "<C-w>l", opts)
 
 -- Resize with arrows
-keymap("n", "<C-Up>", ":resize -2<CR>", opts)
-keymap("n", "<C-Down>", ":resize +2<CR>", opts)
-keymap("n", "<C-Left>", ":vertical resize -2<CR>", opts)
-keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
+keymap("n", "<A-J>", ":resize -2<CR>", opts)
+keymap("n", "<A-K>", ":resize +2<CR>", opts)
+keymap("n", "<A-H>", ":vertical resize -2<CR>", opts)
+keymap("n", "<A-L>", ":vertical resize +2<CR>", opts)
 
 -- Navigate buffers
 keymap("n", "<S-l>", ":bnext<CR>", opts)
@@ -42,6 +42,9 @@ keymap("n", "<A-k>", "<Esc>:m .-2<CR>==", opts)
 -- Close buffers
 keymap("n", "<S-q>", "<cmd>Bdelete!<CR>", opts)
 
+-- Delete Word
+keymap("n", "<C-BS>", "<C-W>", opts)
+
 -- Insert --
 -- Press jk fast to enter
 keymap("i", "jk", "<ESC>", opts)
@@ -50,6 +53,9 @@ keymap("i", "jk", "<ESC>", opts)
 keymap("i", "<A-j>", "<Esc>:m .+1<CR>==gi", opts)
 keymap("i", "<A-k>", "<Esc>:m .-2<CR>==gi", opts)
 
+-- Delete Word
+keymap("i", "<C-BS>", "<C-W>", opts)
+
 -- Visual --
 -- Stay in indent mode
 keymap("v", "<", "<gv", opts)
@@ -57,6 +63,9 @@ keymap("v", ">", ">gv", opts)
 
 -- Better paste
 keymap("v", "p", '"_dP', opts)
+
+-- Delete Word
+keymap("v", "<C-BS>", "<C-W>", opts)
 
 -- Visual Block --
 -- Move text up and down

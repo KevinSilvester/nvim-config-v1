@@ -20,6 +20,7 @@ local servers = {
    "cssls",
    "dockerls",
    "emmet_ls",
+   "grammarly",
    "gopls",
    "html",
    "intelephense",
