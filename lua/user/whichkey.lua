@@ -3,6 +3,11 @@ if not status_ok then
    return
 end
 
+local status_ok_1, crates = pcall(require, "crates")
+if not status_ok_1 then
+   return
+end
+
 local setup = {
    plugins = {
       marks = true, -- shows a list of your marks on ' and `
@@ -85,9 +90,25 @@ local mappings = {
       "Buffers",
    },
    ["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
-   ["c"] = { "<cmd>Bdelete!<CR>", "Close Buffer" },
+   ["q"] = { "<cmd>Bdelete!<CR>", "Close Buffer" },
    ["h"] = { "<cmd>nohlsearch<CR>", "Clear Highlights" },
    ["/"] = { '<cmd>lua require("Comment.api").toggle_current_linewise()<CR>', "Comment line" },
+
+   c = {
+      name = "Crates",
+      t = { "<cmd>lua require('crates').toggle()<cr>", "Toggle" },
+      r = { "<cmd>lua require('crates').reload()<cr>", "Reload" },
+      v = { "<cmd>lua require('crates').show_versions_popup()<cr>", "Show Versions" },
+      f = { "<cmd>lua require('crates').show_features_popup()<cr>", "Show Features" },
+      d = { "<cmd>lua require('crates').show_dependencies_popup()<cr>", "Show Dependencies" },
+      u = { "<cmd>lua require('crates').update_crate()<cr>", "Update Crate" },
+      U = { "<cmd>lua require('crates').update_crates()<cr>", "Update Crates" },
+      a = { "<cmd>lua require('crates').update_all_crates()<cr>", "Update All Crates" },
+      H = { "<cmd>lua require('crates').open_homepage()<cr>", "Open Homepage" },
+      R = { "<cmd>lua require('crates').open_repository()<cr>", "Open Repository" },
+      D = { "<cmd>lua require('crates').open_documentation()<cr>", "Open Documentation" },
+      C = { "<cmd>lua require('crates').open_crate_io()<cr>", "Open crates.io" },
+   },
 
    p = {
       name = "Packer",
