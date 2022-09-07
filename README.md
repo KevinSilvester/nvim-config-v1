@@ -79,9 +79,18 @@ Run `nvim` and wait for the plugins to be installed
   sudo apt install xsel # for X11
   sudo apt install wl-clipboard # for wayland
   ```
-- On wsl2 (see [LunarVim Docs](https://www.lunarvim.org/01-installing.html#tips-for-wsl-2-users))
+- On wsl2 add the path to neovim bin folder to wsl distro path environment variable as win32yank is bundled with neovim for windows. (see [LunarVim Docs](https://www.lunarvim.org/01-installing.html#tips-for-wsl-2-users))
 ```sh
-scoop install win32yank
+# if neovim for windows was installed using scoop
+
+# fish shell
+fish_add_path -g "/mnt/c/Users/USERNAME/scoop/apps/neovim/current/bin"
+
+# zsh/bash
+export PATH=/mnt/c/Users/USERNAME/scoop/apps/neovim/current/bin:$PATH
+
+# nushell
+let-env PATH = ($env.PATH | append '/mnt/c/Users/USERNAME/scoop/apps/neovim/current/bin')
 ```
 
 ## Get healthy
