@@ -45,3 +45,16 @@ if vim.fn.has("win64") or vim.fn.has("win32") or vim.fn.has("win16") then
 else
    vim.opt.shell = "fish"
 end
+
+if vim.fn.has("wsl") == 1 then
+   vim.g.clipboard = {
+      copy = {
+         ["+"] = "win32yank.exe -i --crlf",
+         ["*"] = "win32yank.exe -i --crlf",
+      },
+      paste = {
+         ["+"] = "win32yank.exe -o --lf",
+         ["*"] = "win32yank.exe -o --lf",
+      },
+   }
+end

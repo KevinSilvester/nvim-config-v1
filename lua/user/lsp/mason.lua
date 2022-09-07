@@ -25,7 +25,6 @@ local servers = {
    "html",
    "intelephense",
    "jsonls",
-   "marksman",
    "powershell_es",
    "rust_analyzer",
    "sqls",
