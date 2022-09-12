@@ -23,7 +23,6 @@ require("user.dap")
 
 require("user.vim-surround")
 require("user.whichkey")
-require("user.rust-tools")
 require("user.spectre")
 require("user.crates")
 require("user.minimap")

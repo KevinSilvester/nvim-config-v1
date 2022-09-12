@@ -170,6 +170,7 @@ local mappings = {
       a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
       f = { "<cmd>lua vim.lsp.buf.formatting()<cr>", "Format" },
       i = { "<cmd>Mason<cr>", "Info" },
+      o = { "<cmd>lua vim.diagnostic.open_float()<cr>", "Open Float" },
       j = {
          "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>",
          "Next Diagnostic",

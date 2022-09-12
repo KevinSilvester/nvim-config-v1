@@ -22,7 +22,7 @@ M.setup = function()
    end
 
    vim.diagnostic.config({
-      virtual_text = false, -- disable virtual text
+      virtual_text = true, -- show virtual text
       signs = {
          active = signs, -- show signs
       },

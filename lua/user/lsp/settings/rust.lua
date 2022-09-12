@@ -1,6 +1,6 @@
 local cmd = { "rustup", "run", "stable" }
 
-if vim.fn.has("win64") or vim.fn.has("win32") or vim.fn.has("win16") then
+if vim.loop.os_uname().sysname == "Windows_NT" then
    table.insert(cmd, vim.fn.stdpath("data") .. "mason\\bin\\rust_analyzer.cmd")
 else
    table.insert(cmd, vim.fn.stdpath("data") .. "mason/bin/rust_analyzer")
@@ -68,7 +68,7 @@ return {
       },
    },
    server = {
-      cmd = cmd,
+      cmd = { "rustup", "run", "stable", "rust-analyzer" },
       on_attach = require("user.lsp.handlers").on_attach,
       capabilities = require("user.lsp.handlers").capabilities,
 
