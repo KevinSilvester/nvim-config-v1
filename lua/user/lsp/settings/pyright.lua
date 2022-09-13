@@ -2,7 +2,14 @@ return {
    settings = {
       python = {
          analysis = {
-            typeCheckingMode = "off",
+            autoSearchPaths = true,
+            useLibraryCodeForTypes = true,
+            typeCheckingMode = "basic",
+            diagnosticMode = "workspace",
+            inlayHints = {
+               variableTypes = true,
+               functionReturnTypes = true,
+            },
          },
       },
    },

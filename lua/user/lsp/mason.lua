@@ -25,6 +25,7 @@ local servers = {
    "html",
    "intelephense",
    "jsonls",
+   "pyright",
    "powershell_es",
    "rust_analyzer",
    "sqls",
