@@ -1,5 +1,3 @@
-local opts = {}
-
 local IS_WINDOWS = vim.loop.os_uname().sysname == "Windows_NT"
 
 local function bundle_path(path)
@@ -27,17 +25,13 @@ local pses_command = bundle_path("/Start-EditorServices.ps1")
    .. log_path("/pses-session.json")
    .. " -FeatureFlags @() -AdditionalModules @() -HostName 'My Client' -HostProfileId 'myclient' -HostVersion 1.0.0 -Stdio -LogLevel Normal"
 
-if vim.fn.has("win64") or vim.fn.has("win32") or vim.fn.has("win16") then
-   opts = {
-      bundle_path = "C:/Users/kevin/lsp/PSES",
-      cmd = {
-         "pwsh",
-         "-NoLogo",
-         "-NoProfile",
-         "-Command",
-         pses_command,
-      },
-   }
-end
-
-return opts
+return {
+   bundle_path = bundle_path(),
+   cmd = {
+      "pwsh",
+      "-NoLogo",
+      "-NoProfile",
+      "-Command",
+      pses_command,
+   },
+}
