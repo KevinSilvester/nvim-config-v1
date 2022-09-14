@@ -40,13 +40,25 @@ vim.opt.shortmess:append("c")
 vim.opt.whichwrap:append("<,>,[,],h,l")
 vim.opt.iskeyword:append("-")
 
-if vim.fn.has("win64") or vim.fn.has("win32") or vim.fn.has("win16") then
-   -- vim.opt.shell = "pwsh -l"
+if vim.loop.os_uname().sysname == "Windows_NT" then
+   -- ref: https://github.com/akinsho/toggleterm.nvim/wiki/Tips-and-Tricks#windows
+   local powershell_options = {
+      shell = vim.fn.executable("pwsh") and "pwsh" or "powershell",
+      shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;",
+      shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait",
+      shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode",
+      shellquote = "",
+      shellxquote = "",
+   }
+
+   for option, value in pairs(powershell_options) do
+      vim.opt[option] = value
+   end
 else
    vim.opt.shell = "fish"
 end
 
-if vim.fn.has("wsl") == 1 then
+if vim.fn.has("wsl") then
    vim.g.clipboard = {
       copy = {
          ["+"] = "win32yank.exe -i --crlf",
