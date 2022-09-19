@@ -40,6 +40,15 @@ vim.opt.shortmess:append("c")
 vim.opt.whichwrap:append("<,>,[,],h,l")
 vim.opt.iskeyword:append("-")
 
+if vim.opt.filetype == "python" then
+   vim.opt.shiftwidth = 4
+   vim.opt.tabstop = 4
+end
+
+if vim.fn.executable('rg') == 1 then
+  vim.opt.grepprg = 'rg --vimgrep'
+end
+
 if vim.loop.os_uname().sysname == "Windows_NT" then
    -- ref: https://github.com/akinsho/toggleterm.nvim/wiki/Tips-and-Tricks#windows
    local powershell_options = {
