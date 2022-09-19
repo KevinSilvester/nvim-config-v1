@@ -66,7 +66,7 @@ return packer.startup(function(use)
       "JoosepAlviste/nvim-ts-context-commentstring",
       commit = "88343753dbe81c227a1c1fd2c8d764afb8d36269",
    })
-   use({ "B4mbus/todo-comments.nvim", commit = "6347cc3f69b938ca18f4101ab991d89b3c369023" })
+   use({ "folke/todo-comments.nvim", commit = "02eb3019786d9083b93ab9457761899680c6f3ec" })
 
    --[[ FileExplorer/Sidebar ]]
    use({ "kyazdani42/nvim-tree.lua", commit = "bdb6d4a25410da35bbf7ce0dbdaa8d60432bc243" })

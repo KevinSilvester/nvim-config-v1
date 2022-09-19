@@ -80,18 +80,8 @@ local hl_str = function(str, hl)
 end
 
 local lsp = {
-   function(msg)
-      msg = msg or "LS Inactive"
-      local buf_clients = vim.lsp.buf_get_clients()
-
-      if next(buf_clients) == nil then
-         -- TODO: clean up this if statement
-         if type(msg) == "boolean" or #msg == 0 then
-            return "LS Inactive"
-         end
-         return msg
-      end
-
+   function()
+      local buf_clients = vim.lsp.buf_get_clients(0)
       local buf_ft = vim.bo.filetype
       local buf_client_names = {}
 
@@ -119,10 +109,10 @@ local lsp = {
       local unique_client_names = vim.fn.uniq(buf_client_names)
       local unique_fmt_names = vim.fn.uniq(buf_fmt_names)
 
-      local str_client = table.concat(unique_client_names, ", ") or "No LS"
-      local str_fmt = table.concat(unique_fmt_names, ", ") or "No Formatter"
+      local str_client = #unique_client_names > 0 and table.concat(unique_client_names, ", ") or "No LS"
+      local str_fmt = #unique_fmt_names > 0 and table.concat(unique_fmt_names, ", ") or "No Formatter"
 
-      return "[" .. str_client .. " ▍ " .. str_fmt .. "]"
+      return "[" .. str_client .. "] [" .. str_fmt .. "]"
    end,
    color = { gui = "bold" },
 }
@@ -154,8 +144,8 @@ lualine.setup({
       lualine_a = { "mode" },
       lualine_b = { branch, "filename" },
       lualine_c = { diff, diagnostics },
-      lualine_x = { treesitter, copilot, lsp, "encoding", filetype },
-      lualine_y = { location },
+      lualine_x = { treesitter, copilot, lsp, "encoding" },
+      lualine_y = { filetype, location },
       lualine_z = { "progress" },
    },
 })

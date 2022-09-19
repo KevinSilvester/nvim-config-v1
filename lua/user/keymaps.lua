@@ -45,6 +45,9 @@ keymap("n", "<S-q>", "<cmd>Bdelete!<CR>", opts)
 -- Delete Word
 keymap("n", "<C-BS>", "<C-W>", opts)
 
+-- Refresh NvimTree
+keymap("n", "nr", "<cmd>NvimTreeRefresh<cr>", opts)
+
 -- Insert --
 -- Press jk fast to enter
 keymap("i", "jk", "<ESC>", opts)
@@ -78,7 +81,8 @@ keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 keymap(
    "x",
    "<leader>/",
-   '<ESC><CMD>lua require("Comment.api").toggle_linewise_op(vim.fn.visualmode())<CR>'
+   '<ESC><CMD>lua require("Comment.api").toggle_linewise_op(vim.fn.visualmode())<CR>',
+   opts
 )
 
 -- Copilot
