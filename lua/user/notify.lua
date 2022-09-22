@@ -17,7 +17,13 @@ local opts = {
    timeout = 5000,
 
    -- Render function for notifications. See notify-render()
-   render = "default",
+   render = function(bufnr, notif, ...)
+      if notif.title[1] == "" then
+         return require("notify.render").minimal(bufnr, notif, ...)
+      else
+         return require("notify.render").default(bufnr, notif, ...)
+      end
+   end,
 
    ---@usage highlight behind the window for stages that change opacity
    background_colour = "Normal",

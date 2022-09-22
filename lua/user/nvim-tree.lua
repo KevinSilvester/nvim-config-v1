@@ -24,8 +24,8 @@ nvim_tree.setup({
             folder = {
                arrow_open = "",
                arrow_closed = "",
-               default = "",
-               open = "",
+               default = "",
+               open = "",
                empty = "",
                empty_open = "",
                symlink = "",

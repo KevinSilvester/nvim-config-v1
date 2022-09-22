@@ -21,6 +21,15 @@ vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#8cdb53" })
 vim.api.nvim_set_hl(0, "CmpItemKindEmoji", { fg = "#FDE030" })
 vim.api.nvim_set_hl(0, "CmpItemKindCrates", { fg = "#F64D00" })
 
+local has_words_before = function()
+   if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
+      return false
+   end
+   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+   return col ~= 0
+      and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
+end
+
 cmp.setup({
    snippet = {
       expand = function(args)
@@ -42,16 +51,16 @@ cmp.setup({
       -- Set `select` to `false` to only confirm explicitly selected items.
       ["<CR>"] = cmp.mapping.confirm({ select = true }),
       ["<Tab>"] = cmp.mapping(function(fallback)
-         if cmp.visible() then
-            cmp.select_next_item()
+         if cmp.visible() and has_words_before() then
+            cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
          elseif luasnip.jumpable(1) then
             luasnip.jump(1)
          elseif luasnip.expand_or_jumpable() then
             luasnip.expand_or_jump()
          elseif luasnip.expandable() then
             luasnip.expand()
-         elseif check_backspace() then
-            fallback()
+            -- elseif check_backspace() then
+            -- fallback()
          else
             fallback()
          end

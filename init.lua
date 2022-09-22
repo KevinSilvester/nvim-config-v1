@@ -1,7 +1,8 @@
-require("user.options")
-require("user.keymaps")
+require("core.options")
+require("core.keymaps")
+require("core.autocommands")
+
 require("user.plugins")
-require("user.autocommands")
 require("user.colorscheme")
 require("user.cmp")
 require("user.telescope")

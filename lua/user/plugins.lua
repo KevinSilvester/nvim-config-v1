@@ -16,14 +16,6 @@ if fn.empty(fn.glob(install_path)) > 0 then
    print("Close and reopen nvim...")
 end
 
--- Autocommand that reloads neovim whenever you save the plugins.lua file
-vim.cmd([[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerSync
-  augroup end
-]])
-
 -- Use a protected call so we don't error out on first use
 local status_ok, packer = pcall(require, "packer")
 if not status_ok then
@@ -120,17 +112,22 @@ return packer.startup(function(use)
    -- use({ "github/copilot.vim" })
    use({
       "zbirenbaum/copilot.lua",
+      commit = "3d3f6a312e49c8333681c8163dc32f88b120ede5",
       event = { "VimEnter" },
       config = function()
          vim.defer_fn(function()
-            require("user.copilot")
+            require("user.copilot").setup_copilot()
          end, 100)
       end,
    })
    use({
       "zbirenbaum/copilot-cmp",
+      commit = "a549a24eab37d6803555f40f292280ba01e686de",
       module = "copilot_cmp",
       after = { "copilot.lua", "nvim-cmp" },
+      config = function ()
+         require("user.copilot").setup_copilot_cmp()
+      end
    })
 
    --[[ Telescope ]]
