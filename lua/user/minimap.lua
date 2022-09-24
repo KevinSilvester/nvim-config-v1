@@ -25,7 +25,12 @@ local colors = {
    },
 }
 
-for key, value in pairs(colors[vim.g.colors_name]) do
-   local str = string.gsub("guifg=$guifg guibg=$guibg", "%$(%w+)", value)
-   vim.cmd("autocmd BufEnter * :highlight " .. key .. " ctermbg=59  ctermfg=228 " .. str)
+local current_colorscheme = vim.g.colors_name
+
+-- check if colorscheme is supported
+if colors[current_colorscheme] then
+   for key, value in pairs(colors[current_colorscheme]) do
+      local str = string.gsub("guifg=$guifg guibg=$guibg", "%$(%w+)", value)
+      vim.cmd("autocmd BufEnter * :highlight " .. key .. " ctermbg=59  ctermfg=228 " .. str)
+   end
 end

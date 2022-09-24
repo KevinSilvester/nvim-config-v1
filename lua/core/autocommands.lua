@@ -9,6 +9,14 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
    end,
 })
 
+-- Autocommand that reloads neovim whenever you save the plugins.lua file
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+   pattern = { "plugins/init.lua" },
+   callback = function()
+      vim.cmd([[source $MYVIMRC | PackerSync]])
+   end,
+})
+
 -- Remove statusline and tabline when in Alpha
 vim.api.nvim_create_autocmd({ "User" }, {
    pattern = { "AlphaReady" },

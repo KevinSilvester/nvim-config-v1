@@ -1,6 +1,6 @@
 local cmd = { "rustup", "run", "stable" }
 
-if vim.loop.os_uname().sysname == "Windows_NT" then
+if vim.g.is_win then
    table.insert(cmd, vim.fn.stdpath("data") .. "mason\\bin\\rust_analyzer.cmd")
 else
    table.insert(cmd, vim.fn.stdpath("data") .. "mason/bin/rust_analyzer")

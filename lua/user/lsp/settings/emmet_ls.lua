@@ -3,14 +3,14 @@
 
 local cmd = {}
 
-if vim.fn.has("win64") or vim.fn.has("win32") or vim.fn.has("win16") then
+if vim.g.is_win then
    cmd = { "pwsh", "-c", "ls_emmet", "--stdio" }
 else
    cmd = { "ls_emmet", "--stdio" }
 end
 
 return {
-   cmd = { "pwsh", "-c", "ls_emmet", "--stdio" },
+   cmd = cmd,
    filetypes = {
       "html",
       "css",

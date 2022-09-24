@@ -1,10 +1,8 @@
-local IS_WINDOWS = vim.loop.os_uname().sysname == "Windows_NT"
-
 local function bundle_path(path)
    path = path or ""
 
    local bp = "/mason/packages/powershell-editor-services/PowerShellEditorServices" .. path
-   if IS_WINDOWS then
+   if vim.g.is_win then
       bp = vim.fn.substitute(bp, "/", "\\", "g")
    end
 
@@ -12,7 +10,7 @@ local function bundle_path(path)
 end
 
 local function log_path(file_name)
-   file_name = IS_WINDOWS and vim.fn.substitute(file_name, "/", "\\", "g") or file_name
+   file_name = vim.g.is_win and vim.fn.substitute(file_name, "/", "\\", "g") or file_name
    return vim.fn.stdpath("cache") .. file_name
 end
 

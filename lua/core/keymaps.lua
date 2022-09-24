@@ -87,8 +87,8 @@ M.x = {
    -- move selected line / block of text in visual mode
    ["J"] = ":move '>+1<CR>gv-gv",
    ["K"] = ":move '<-2<CR>gv-gv",
-   ["A-j"] = ":move '>+<CR>gv-gv",
-   ["A-k"] = ":move '<-2<CR>gv-gv",
+   ["<A-j>"] = ":move '>+<CR>gv-gv",
+   ["<A-k>"] = ":move '<-2<CR>gv-gv",
 
    -- Comment
    ["<leader>/"] = "<esc><cmd>lua require('comment.api').toggle_linewise_op(vim.fn.visualmode())<cr>",

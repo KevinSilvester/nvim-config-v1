@@ -66,7 +66,7 @@ return packer.startup(function(use)
    --[[ StatusLine/Windbar ]]
    --
    use({ "akinsho/bufferline.nvim", commit = "c78b3ecf9539a719828bca82fc7ddb9b3ba0c353" })
-   use({ "nvim-lualine/lualine.nvim", commit = "3362b28f917acc37538b1047f187ff1b5645ecdd" })
+   use({ "nvim-lualine/lualine.nvim", commit = "a52f078026b27694d2290e34efa61a6e4a690621" })
    use({
       "SmiteshP/nvim-navic",
       commit = "94bf6fcb1dc27bdad230d9385da085e72c390019",
@@ -77,9 +77,17 @@ return packer.startup(function(use)
    use({ "akinsho/toggleterm.nvim", commit = "aaeed9e02167c5e8f00f25156895a6fd95403af8" })
 
    --[[ ColorShemes ]]
-   use({ "folke/tokyonight.nvim", commit = "8223c970677e4d88c9b6b6d81bda23daf11062bb" })
-   use({ "lunarvim/darkplus.nvim", commit = "2584cdeefc078351a79073322eb7f14d7fbb1835" })
+   use({ "folke/tokyonight.nvim" })
+   use({ "lunarvim/darkplus.nvim" })
+   use({ "lunarvim/onedarker.nvim" })
    use({ "rebelot/kanagawa.nvim" })
+   use({
+      "catppuccin/nvim",
+      as = "catppuccin",
+      config = function()
+         require("catppuccin").setup()
+      end,
+   })
 
    --[[ cmp plugins ]]
    use({ "hrsh7th/nvim-cmp", commit = "df6734aa018d6feb4d76ba6bda94b1aeac2b378a" }) -- The completion plugin
@@ -89,7 +97,8 @@ return packer.startup(function(use)
    use({ "saadparwaiz1/cmp_luasnip", commit = "a9de941bcbda508d0a45d28ae366bb3f08db2e36" }) -- snippet completions
    use({ "hrsh7th/cmp-nvim-lsp", commit = "affe808a5c56b71630f17aa7c38e15c59fd648a8" })
    use({ "hrsh7th/cmp-nvim-lua", commit = "d276254e7198ab7d00f117e88e223b4bd8c02d21" })
-   use({ "windwp/nvim-ts-autotag" })
+   use({ "windwp/nvim-ts-autotag", commit = "fdefe46c6807441460f11f11a167a2baf8e4534b" })
+   use({ "gelguy/wilder.nvim", commit = "679f348dc90d80ff9ba0e7c470c40a4d038dcecf" }) -- command completions
 
    --[[ snippets ]]
    use({ "L3MON4D3/LuaSnip", commit = "79b2019c68a2ff5ae4d732d50746c901dd45603a" }) --snippet engine
@@ -106,7 +115,6 @@ return packer.startup(function(use)
    use({ "folke/lua-dev.nvim" }) -- not commit as still in early development
    use({ "b0o/schemastore.nvim" }) -- no commit as new schemas are being added
    -- use({ "onsails/lspkind.nvim" }) -- cmp dropdown formatter
-   -- use({ "williamboman/nvim-lsp-installer", commit = "e9f13d7acaa60aff91c58b923002228668c8c9e6" }) -- LSP installer
 
    --[[ Copilot ]]
    -- use({ "github/copilot.vim" })
@@ -125,13 +133,15 @@ return packer.startup(function(use)
       commit = "a549a24eab37d6803555f40f292280ba01e686de",
       module = "copilot_cmp",
       after = { "copilot.lua", "nvim-cmp" },
-      config = function ()
+      config = function()
          require("user.copilot").setup_copilot_cmp()
-      end
+      end,
    })
 
    --[[ Telescope ]]
    use({ "nvim-telescope/telescope.nvim", commit = "d96eaa914aab6cfc4adccb34af421bdd496468b0" })
+   use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
+   -- use({ "KevinSilvester/telescope-media-files.nvim" })
 
    --[[ Treesitter ]]
    use({
@@ -200,6 +210,13 @@ return packer.startup(function(use)
       branch = "master",
    })
    use({ "stevearc/dressing.nvim", commit = "9cdb3e0f0973447b940b35d3175dc780301de427" })
+   use({
+      "j-hui/fidget.nvim",
+      commit = "492492e7d50452a9ace8346d31f6d6da40439f0e",
+      config = function()
+         require("fidget").setup({ spinner = "dots_negative"})
+      end,
+   })
 
    if PACKER_BOOTSTRAP then
       require("packer").sync()
