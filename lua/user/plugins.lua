@@ -146,11 +146,11 @@ return packer.startup(function(use)
    --[[ Treesitter ]]
    use({
       "nvim-treesitter/nvim-treesitter",
-      commit = "518e27589c0463af15463c9d675c65e464efc2fe",
+      commit = "3b790e7657d6bb54245b5a70c2ae9355713d0b0c",
    })
 
    --[[ Git ]]
-   use({ "lewis6991/gitsigns.nvim", commit = "c18e016864c92ecf9775abea1baaa161c28082c3" })
+   use({ "lewis6991/gitsigns.nvim", commit = "f98c85e7c3d65a51f45863a34feb4849c82f240f" })
    use({
       "sindrets/diffview.nvim",
       commit = "e32de2be00e0b5e23736f906f3d6d9dca14fbeb0",
@@ -179,9 +179,9 @@ return packer.startup(function(use)
    use({
       "rcarriga/nvim-notify",
       commit = "cf5dc4f7095673b8402c51bf80448596d7b97fc6",
-      config = function()
-         require("user.notify")
-      end,
+      -- config = function()
+      --    require("user.notify")
+      -- end,
       requires = { "nvim-telescope/telescope.nvim" },
    })
    use({
@@ -214,9 +214,10 @@ return packer.startup(function(use)
       "j-hui/fidget.nvim",
       commit = "492492e7d50452a9ace8346d31f6d6da40439f0e",
       config = function()
-         require("fidget").setup({ spinner = "dots_negative"})
+         require("fidget").setup({ spinner = "dots_negative" })
       end,
    })
+   use({ "MunifTanjim/nui.nvim", commit = "e9889bbd9919544697d497537acacd9c67d0de99" })
 
    if PACKER_BOOTSTRAP then
       require("packer").sync()

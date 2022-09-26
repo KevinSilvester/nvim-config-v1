@@ -14,7 +14,6 @@ local ensure_installed = {
    "elvish",
    "fish",
    "gitattributes",
-   "gitignore",
    "go",
    "graphql",
    "html",
@@ -24,7 +23,6 @@ local ensure_installed = {
    "jsdoc",
    "json",
    "json5",
-   "JSON with comments",
    "kotlin",
    "lua",
    "markdown",
@@ -47,9 +45,10 @@ local ensure_installed = {
 }
 
 configs.setup({
-   ensure_installed,
+   ensure_installed = 'all',
    auto_install = true,
-   ignore_install = { "" }, -- List of parsers to ignore installing
+   sync_install = false,
+   ignore_install = {}, -- List of parsers to ignore installing
    highlight = {
       enable = true, -- false will disable the whole extension
    },
@@ -57,4 +56,5 @@ configs.setup({
       enable = true,
    },
    indent = { enable = true, disable = { "python", "css" } },
+   parser_install_dir = vim.fn.stdpath("data") .. "/site/parsers",
 })

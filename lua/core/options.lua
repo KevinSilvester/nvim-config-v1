@@ -31,6 +31,7 @@
 
 vim.opt.laststatus = 3 -- global status
 vim.opt.showmode = false
+vim.opt.fileformat = "unix"
 
 vim.opt.title = true
 vim.opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
@@ -92,6 +93,8 @@ vim.opt.whichwrap:append("<>[]hl")
 
 vim.opt.iskeyword:append("-")
 
+vim.opt.runtimepath:append(vim.fn.stdpath("data") .. "/site/parsers")
+
 if vim.opt.filetype == "python" then
    vim.opt.shiftwidth = 4
    vim.opt.tabstop = 4
@@ -101,7 +104,7 @@ if vim.fn.executable("rg") == 1 then
    vim.opt.grepprg = "rg --vimgrep"
 end
 
-if is_windows then
+if vim.g.is_win then
    -- ref: https://github.com/akinsho/toggleterm.nvim/wiki/Tips-and-Tricks#windows
    local powershell_options = {
       shell = vim.fn.executable("pwsh") and "pwsh" or "powershell",

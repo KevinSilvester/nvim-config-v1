@@ -90,7 +90,7 @@ M.load_plugins = function()
       })
       use({
          "nvim-lualine/lualine.nvim",
-         event = "VimEnter",
+         requires = { "kyazdani42/nvim-web-devicons", opt = true },
          commit = "a52f078026b27694d2290e34efa61a6e4a690621",
       })
       use({
@@ -200,7 +200,7 @@ M.load_plugins = function()
       --[[ Treesitter ]]
       use({
          "nvim-treesitter/nvim-treesitter",
-         commit = "518e27589c0463af15463c9d675c65e464efc2fe",
+         commit = "3b790e7657d6bb54245b5a70c2ae9355713d0b0c",
       })
 
       --

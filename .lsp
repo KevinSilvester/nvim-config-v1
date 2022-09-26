@@ -1,2 +1,0 @@
-sumneko_lua
-stylua

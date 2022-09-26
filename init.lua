@@ -1,7 +1,8 @@
-require("core.options")
 require("core.globals")
+require("core.options")
 require("core.keymaps")
 require("core.autocommands")
+require("core.commands")
 
 require("user.plugins")
 require("user.colorscheme")
