@@ -113,6 +113,7 @@ local mappings = {
    p = {
       name = "Packer",
       c = { "<cmd>PackerCompile<cr>", "Compile" },
+      C = { "<cmd>PackerClean<cr>", "Clean" },
       i = { "<cmd>PackerInstall<cr>", "Install" },
       s = { "<cmd>PackerSync<cr>", "Sync" },
       S = { "<cmd>PackerStatus<cr>", "Status" },
@@ -216,8 +217,8 @@ local mappings = {
    t = {
       name = "Terminal",
       n = { "<cmd>lua _NODE_TOGGLE()<cr>", "Node" },
-      u = { "<cmd>lua _NCDU_TOGGLE()<cr>", "NCDU" },
-      t = { "<cmd>lua _HTOP_TOGGLE()<cr>", "Htop" },
+      c = { "<cmd>lua _CARGO_RUN()<cr>", "Cargo Run" },
+      C = { "<cmd>lua _CARGO_TEST()<cr>", "Cargo Test" },
       p = { "<cmd>lua _PYTHON_TOGGLE()<cr>", "Python" },
       f = { "<cmd>ToggleTerm direction=float<cr>", "Float" },
       h = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal" },
