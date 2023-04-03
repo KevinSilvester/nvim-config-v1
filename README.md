@@ -1,5 +1,7 @@
 # My Neovim Configuration
 
+># REPO IS ARCHIVED
+
 > Based off [nvim-basic-ide template](https://github.com/LunarVim/nvim-basic-ide)
 
 ### Install Neovim 0.7
